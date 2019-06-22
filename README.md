@@ -1,7 +1,7 @@
 # {≡} statebase
 A tiny but powerful state management library. Inspired by React setState and the Firebase database API.
 
-### example
+### example usage
 Create state object:
 ```
 var state = createState({
