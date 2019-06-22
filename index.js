@@ -30,6 +30,11 @@ function createState(initialState) {
       }
 
       function set(value) {
+         if (path.length === 1 && key === 'state') {
+            state = value;
+            callListeners();
+            return;
+         }
          var update = state;
          for (var i=1; i<path.length-1; i++) {
             update = update[path[i]];

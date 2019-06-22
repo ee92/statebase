@@ -1,5 +1,15 @@
 var createState = require('./index.js');
 
+function checkStateReplace() {
+   var state = createState({
+      x: 100
+   });
+   state.set({x: 42});
+   if (state.ref('x').val() !== 42) {
+      console.warn('state replace broken');
+   }
+}
+
 function checkImmutable() {
    var state = createState({
       a: {
@@ -95,6 +105,7 @@ function runTests() {
    checkListenerDeep();
    checkSetDeep();
    checkImmutable();
+   checkStateReplace();
 }
 
 runTests();

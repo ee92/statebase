@@ -5,6 +5,10 @@ A tiny but powerful state management library. Inspired by React setState and the
 
 Include:
 ```
+import createState from 'statebase'
+
+or 
+
 var createState = require('statebase')
 ```
 
