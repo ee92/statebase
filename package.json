@@ -8,19 +8,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ee92/state-base.git"
+    "url": "git+https://github.com/ee92/statebase.git"
   },
   "keywords": [
     "state",
     "global",
-    "react",
-    "redux",
-    "firebase"
+    "management"
   ],
   "author": "Egor Egorov",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ee92/state-base/issues"
+    "url": "https://github.com/ee92/statebase/issues"
   },
-  "homepage": "https://github.com/ee92/state-base#readme"
+  "homepage": "https://github.com/ee92/statebase#readme"
 }

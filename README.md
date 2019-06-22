@@ -2,6 +2,12 @@
 A tiny but powerful state management library. Inspired by React setState and the Firebase database API.
 
 ### example usage
+
+Include:
+```
+var createState = require('statebase')
+```
+
 Create state object:
 ```
 var state = createState({
