@@ -1,0 +1,26 @@
+{
+  "name": "statebase",
+  "version": "0.9.2",
+  "description": "A tiny but powerful state management library. Inspired by React setState and the Firebase database API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ee92/state-base.git"
+  },
+  "keywords": [
+    "state",
+    "global",
+    "react",
+    "redux",
+    "firebase"
+  ],
+  "author": "Egor Egorov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ee92/state-base/issues"
+  },
+  "homepage": "https://github.com/ee92/state-base#readme"
+}

@@ -1,5 +1,20 @@
 var createState = require('./index.js');
 
+function checkImmutable() {
+   var state = createState({
+      a: {
+         b: 'c'
+      }
+   });
+   let val = state.ref('a').val();
+   val = {
+      b: 42
+   }
+   if (state.ref('a').ref('b').val() !== 'c') {
+      console.warn('state mutated incorrectly');
+   }
+}
+
 function checkSetDeep() {
    var state = createState({});
    state.ref('x').set({});
@@ -79,6 +94,7 @@ function runTests() {
    checkListener();
    checkListenerDeep();
    checkSetDeep();
+   checkImmutable();
 }
 
 runTests();
