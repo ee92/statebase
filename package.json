@@ -1,6 +1,6 @@
 {
   "name": "statebase",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "description": "A tiny but powerful state management library. Inspired by React setState and the Firebase database API.",
   "main": "index.js",
   "scripts": {
