@@ -1,8 +1,24 @@
 function createState(initialState) {
    var state = initialState;
+   var initial = JSON.parse(JSON.stringify(initialState))
    var listeners = {};
 
    function createRef(key, path = [key]) {
+
+      function reset() {
+         if (path.length === 1 && key === 'state') {
+            state = initial;
+            callListeners();
+            return;
+         }
+         var update = state;
+         for (var i=1; i<path.length-1; i++) {
+            update = update[path[i]];
+         }
+         if (update[key] === initial[key]) return;
+         update[key] = initial[key];
+         callListeners();
+      }
       
       function ref(key) {
          return createRef(key, path.concat(key));
@@ -60,7 +76,8 @@ function createState(initialState) {
          ref: ref,
          val: val,
          set: set,
-         listen: listen
+         listen: listen,
+         reset: reset
       }
    }
 

@@ -1,5 +1,26 @@
 var createState = require('./index.js');
 
+function checkReset() {
+   var state = createState({
+      x: 100,
+      y: {
+         z: 100
+      }
+   });
+   state.ref('x').set(42);
+   state.ref('x').reset();
+   state.ref('y').ref('z').set(42);
+   state.ref('y').ref('bubba').set(42);
+   state.ref('y').reset();
+   if (
+      state.ref('x').val() !== 100 ||
+      state.ref('y').ref('z').val() !== 100 ||
+      state.ref('y').ref('bubba').val()
+   ) {
+      console.warn('reset not working');
+   }
+}
+
 function checkStateReplace() {
    var state = createState({
       x: 100
@@ -113,6 +134,7 @@ function runTests() {
    checkSetDeep();
    checkImmutable();
    checkStateReplace();
+   checkReset();
 }
 
 runTests();
