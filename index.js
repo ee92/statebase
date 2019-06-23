@@ -14,7 +14,7 @@ function createState(initialState) {
             if (!val[path[i]]) return undefined;
             val = val[path[i]];
          }
-         return val;
+         return JSON.parse(JSON.stringify(val))
       }
 
       function callListeners() {

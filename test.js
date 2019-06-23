@@ -12,16 +12,23 @@ function checkStateReplace() {
 
 function checkImmutable() {
    var state = createState({
-      a: {
-         b: 'c'
+      a: [1,2,3],
+      b: {
+         c: [1,2,3]
       }
    });
-   let val = state.ref('a').val();
-   val = {
-      b: 42
-   }
-   if (state.ref('a').ref('b').val() !== 'c') {
-      console.warn('state mutated incorrectly');
+   var a = state.ref('a').val();
+   var b = state.ref('b').val();
+   var c = state.ref('b').ref('c').val();
+   a.pop();
+   c.pop();
+   b.d = 'wow';
+   if (
+      state.ref('a').val().length !== 3 ||
+      state.ref('b').ref('d').val() !== undefined ||
+      state.ref('b').ref('c').val().length !== 3
+   ) {
+      console.warn('yo state is mutable af');
    }
 }
 
