@@ -3,6 +3,11 @@ A tiny but powerful state management library. Inspired by React setState and the
 
 ### example usage
 
+Install:
+```
+npm install statebase --save
+```
+
 Include:
 ```
 import createState from 'statebase'
@@ -75,3 +80,7 @@ cRef.set('amazing')      // value updated, callback triggered
 unsubscribe()            // remove listener
 cRef.set('incredible')   // value updated, callback *NOT* triggered
 ```
+
+To use with React.js, use the [react-statebase](https://github.com/ee92/react-statebase "React Statebase") package.
+
+
