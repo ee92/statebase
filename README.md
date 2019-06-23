@@ -49,6 +49,21 @@ cRef.val()      // -> 'nice'
 state.val()     // -> {a: false, b: {c: 'nice'}}
 ```
 
+Reset to initial value:
+```
+state.val()     // -> {a: true, b: {c: 'wow'}}
+
+state.ref('a').set(false)
+state.ref('b').ref('c').set('nice')
+state.ref('b').ref('d').set('bubba')
+
+state.val()     // -> {a: false, b: {c: 'nice', d: 'bubba'}}
+
+state.ref('b').reset()
+
+state.val()     // -> {a: false, b: {c: 'wow'}}
+```
+
 Listen for changes:
 ```
 var callback = function(ref) {
