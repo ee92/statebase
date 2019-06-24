@@ -4,12 +4,12 @@ A tiny but powerful state management library. Inspired by React setState and the
 ### example usage
 
 Install:
-```
+```js
 npm install statebase --save
 ```
 
 Include:
-```
+```js
 import createState from 'statebase'
 
 or 
@@ -18,7 +18,7 @@ var createState = require('statebase')
 ```
 
 Create state object:
-```
+```js
 var state = createState({
     a: true,
     b: {
@@ -28,13 +28,13 @@ var state = createState({
 ```
 
 Reference part of the state:
-```
+```js
 var aRef = state.ref('a')
 var bRef = state.ref('b')
 var cRef = state.ref('b').ref('c')
 ```
 Read state values:
-```
+```js
 state.val()     // -> {a: true, b: {c: 'wow'}}
 aRef.val()      // -> true
 bRef.val()      // -> {c: 'wow'}
@@ -42,7 +42,7 @@ cRef.val()      // -> 'wow'
 ```
 
 Update state values:
-```
+```js
 state.val()     // -> {a: true, b: {c: 'wow'}}
 
 aRef.set(false)
@@ -55,7 +55,7 @@ state.val()     // -> {a: false, b: {c: 'nice'}}
 ```
 
 Reset to initial value:
-```
+```js
 state.val()     // -> {a: true, b: {c: 'wow'}}
 
 state.ref('a').set(false)
@@ -70,7 +70,7 @@ state.val()     // -> {a: false, b: {c: 'wow'}}
 ```
 
 Listen for changes:
-```
+```js
 var callback = function(ref) {
     console.log('b updated: ', ref.val())
 }
@@ -81,6 +81,11 @@ unsubscribe()            // remove listener
 cRef.set('incredible')   // value updated, callback *NOT* triggered
 ```
 
+### Use with React
+
 To use with React.js, use the [react-statebase](https://github.com/ee92/react-statebase "React Statebase") package.
 
 
+### License
+
+MIT
