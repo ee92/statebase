@@ -1,5 +1,37 @@
 var createState = require('./index.js');
 
+function checkPrimativeVals() {
+   let initialState = {
+      user: null,
+      siteList: [],
+      inputs: {
+         site: "",
+         email: "",
+         secret: ""
+      },
+      visualHint: [],
+      generatedKey: "",
+      settings: {
+         isShowing: false,
+         isMemorable: true,
+         length: 10,
+         numWords: 3,
+         includeSymbol: true,
+         symbols: "@#$%^&*?!",
+         useSalt: false,
+         salt: ""
+       }
+   }
+   var state = createState(initialState);
+   if (
+      state.ref('inputs').ref('site').val() !== "" ||
+      state.ref('settings').ref('length').val() !== 10 ||
+      state.ref('settings').ref('isShowing').val() !== false
+   ) {
+      console.warn('issue getting primative val');
+   }
+}
+
 function checkReset() {
    var state = createState({
       x: 100,
@@ -135,6 +167,7 @@ function runTests() {
    checkImmutable();
    checkStateReplace();
    checkReset();
+   checkPrimativeVals();
 }
 
 runTests();

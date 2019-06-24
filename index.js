@@ -25,20 +25,21 @@ function createState(initialState) {
       }
 
       function val() {
-         var val = state;
-         for (let i=1; i<path.length; i++) {
-            if (!val[path[i]]) return undefined;
-            val = val[path[i]];
+         var value = state;
+         for (var i=1; i<path.length; i++) {
+            var innerVal = value[path[i]]
+            if (innerVal === undefined) return undefined
+            value = innerVal;
          }
-         return JSON.parse(JSON.stringify(val))
+         return JSON.parse(JSON.stringify(value))
       }
 
       function callListeners() {
-         for (let i=0; i<path.length; i++) {
+         for (var i=0; i<path.length; i++) {
             var paths = path.slice(0, i+1);
             const id = paths.join('-');
             if (!listeners[id]) continue;
-            for (let j=0; j<listeners[id].length; j++) {
+            for (var j=0; j<listeners[id].length; j++) {
                var ref = createRef(paths[i], paths);
                listeners[id][j](ref);
             }
@@ -61,13 +62,13 @@ function createState(initialState) {
       }
 
       function listen(listener) {
-         const id = path.join('-');
+         var id = path.join('-');
          if (!listeners[id]) {
             listeners[id] = [];
          }
          listeners[id].push(listener);
          return function() {
-            const index = listeners[id].indexOf(listener);
+            var index = listeners[id].indexOf(listener);
             listeners[id].splice(index, 1);
          }
       }
