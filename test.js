@@ -1,5 +1,35 @@
 var createState = require('./index.js');
 
+function checkSimpleSet() {
+   let initialState = {
+      user: null,
+      siteList: [],
+      inputs: {
+         site: "",
+         email: "",
+         secret: ""
+      },
+      visualHint: [],
+      generatedKey: "",
+      settings: {
+         isShowing: false,
+         isMemorable: true,
+         length: 10,
+         numWords: 3,
+         includeSymbol: true,
+         symbols: "@#$%^&*?!",
+         useSalt: false,
+         salt: ""
+       }
+   }
+   var state = createState(initialState);
+   let ref = state.ref('inputs').ref('site');
+   ref.set('a');
+   if (ref.val() !== 'a') {
+      console.warn('simple set not working');
+   }
+}
+
 function checkPrimativeVals() {
    let initialState = {
       user: null,
@@ -34,11 +64,14 @@ function checkPrimativeVals() {
 
 function checkReset() {
    var state = createState({
+      a: "",
       x: 100,
       y: {
          z: 100
       }
    });
+
+   state.ref('a').reset();
    state.ref('x').set(42);
    state.ref('x').reset();
    state.ref('y').ref('z').set(42);
@@ -47,7 +80,8 @@ function checkReset() {
    if (
       state.ref('x').val() !== 100 ||
       state.ref('y').ref('z').val() !== 100 ||
-      state.ref('y').ref('bubba').val()
+      state.ref('y').ref('bubba').val() ||
+      state.ref('a').val() !== ""
    ) {
       console.warn('reset not working');
    }
@@ -159,15 +193,44 @@ function checkListenerDeep() {
    }
 }
 
+function checkListenerShallow() {
+   var state = createState({
+      a: 5,
+      b: true,
+      c: {
+         a: 100,
+         b: {
+            c: 'wow'
+         }
+      }
+   });
+   var error = true;
+   let innerRef = state.ref('c').ref('b').ref('c')
+   const unsubC = innerRef.listen(function() {
+      error = false;
+   })
+   const unsubA = state.ref('a').listen(function() {
+      error = true;
+   })
+   state.ref('c').ref('b').set({c: 'nice'});
+   unsubC();
+   unsubA();
+   if (error) {
+      console.warn('listener no work on shallow change');
+   }
+}
+
 function runTests() {
    checkInitialState();
    checkListener();
    checkListenerDeep();
+   checkListenerShallow()
    checkSetDeep();
    checkImmutable();
    checkStateReplace();
    checkReset();
    checkPrimativeVals();
+   checkSimpleSet();
 }
 
 runTests();

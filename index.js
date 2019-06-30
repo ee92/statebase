@@ -1,5 +1,5 @@
 function createState(initialState) {
-   var state = initialState;
+   var state = JSON.parse(JSON.stringify(initialState))
    var initial = JSON.parse(JSON.stringify(initialState))
    var listeners = {};
 
@@ -34,13 +34,32 @@ function createState(initialState) {
          return JSON.parse(JSON.stringify(value))
       }
 
+      // function callListeners() {
+      //    for (var i=0; i<path.length; i++) {
+      //       var paths = path.slice(0, i+1);
+      //       const id = paths.join('-');
+      //       if (!listeners[id]) continue;
+      //       console.log('calling all with id: ', id)
+      //       for (var j=0; j<listeners[id].length; j++) {
+      //          var ref = createRef(paths[i], paths);
+      //          listeners[id][j](ref);
+      //       }
+      //    }
+      // }
+
       function callListeners() {
-         for (var i=0; i<path.length; i++) {
-            var paths = path.slice(0, i+1);
-            const id = paths.join('-');
+         var pathKey = path.join('-');
+         var keys = Object.keys(listeners);
+         for (var i=0; i<keys.length; i++) {
+            var hasPrefix = pathKey.startsWith(keys[i]);
+            var isPrefix = keys[i].startsWith(pathKey);
+            if (!hasPrefix && !isPrefix) continue;
+            var id = keys[i];
             if (!listeners[id]) continue;
             for (var j=0; j<listeners[id].length; j++) {
-               var ref = createRef(paths[i], paths);
+               var refPath = id.split('-');
+               var refKey = refPath[refPath.length - 1];
+               var ref = createRef(refKey, refPath);
                listeners[id][j](ref);
             }
          }
